@@ -1,8 +1,8 @@
 module DoubleML
 
 # Packages
-using LinearAlgebra, MLJ, Random, DataFrames
-using StatsModels, Distributions, Gadfly
+using LinearAlgebra, MLJ, MLJModelInterface, Random, DataFrames
+using StatsModels, Distributions, Gadfly, MLJDecisionTreeInterface
 
 
 export naive_DML, crossfit_DML, MC_sim

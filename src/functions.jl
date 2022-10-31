@@ -1,16 +1,16 @@
 # [===============================================================================]
 
-mutable struct DoubleML #<: MLJModelInterface.Unsupervised
-    model::MLJModelInterface.Model  # Model to be used for the first stage
-    model2::MLJModelInterface.Model # Model to be used for the second stage
-    data::DataFrame                 # Data
-    n_folds::Int                    # Number of folds for cross-validation
-    n_rep::Int                      # Number of repetitions for cross-validation
-    n_jobs::Int                     # Number of jobs for parallelization
-    verbose::Bool                   # Whether to print the progress
-end
+# mutable struct DoubleML #<: MLJModelInterface.Unsupervised
+#     model::MLJModelInterface.Model  # Model to be used for the first stage
+#     model2::MLJModelInterface.Model # Model to be used for the second stage
+#     data::DataFrame                 # Data
+#     n_folds::Int                    # Number of folds for cross-validation
+#     n_rep::Int                      # Number of repetitions for cross-validation
+#     n_jobs::Int                     # Number of jobs for parallelization
+#     verbose::Bool                   # Whether to print the progress
+# end
 
-DoubleML(model, model2, data) = DoubleML(model, model2, data, 5, 1, 1, false)
+# DoubleML(model, model2, data) = DoubleML(model, model2, data, 5, 1, 1, false)
 
 
 
@@ -118,7 +118,7 @@ function MC_sim(n_reps)
     for i in 1:n_reps
         println("Iteration: ", i)
         # Generate the data
-        X, d, y = gen_data(1000, 10)
+        X, d, y = gen_plm(1000, 10)
 
         # Estimate the treatment effect
         model1_naive = RF()
@@ -139,7 +139,7 @@ function MC_sim(n_reps)
 
     Gadfly.with_theme(:dark) do 
         plot(
-            layer(x = theta_est_naive, Geom.density,Theme(default_color = "blue")),
+            layer(x = theta_est_naive, Geom.density, Theme(default_color = "blue")),
             layer(x = theta_est_crossfit, Geom.density, Theme(default_color = "red")),
             Guide.manual_color_key("Method", ["Naive DML", "Crossfit DML"], ["blue", "red"]),
         )
